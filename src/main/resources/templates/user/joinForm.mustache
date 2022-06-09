@@ -26,37 +26,35 @@
 <!-- 컨테이너 끝 -->
 
 <script>
+$("#btn-join").click(()=>{
+    join();
+});
 
-    $("#btn-join").click(()=>{
-        join();
-    });
+async function join(){
 
-    async function join(){
-        let userDto = {
-            username : $("#username").val(),
+    let userDto = {
+            username: $("#username").val(),
             password: $("#password").val(),
             email: $("#email").val(),
             addr: $("#addr").val()
         }
 
-        let reponse = await fetch("/api/join", {
-            method: "post",
-            body: JSON.stringify(userDto),
-            headers:{
+        let response = await fetch("/api/join",{
+            method: "POST",
+            body: JSON.stringify(userDto), 
+            headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }
         });
-
         let responseParse = await response.json();
 
-        if(responseParse.code ==1){
-            alert("회원가입에 성공");
-            location.href="/loginForm";
-        }else{
-            alert("회원가입에 실패");
+        if (responseParse.code == 1) {
+            alert("회원가입에 성공하였습니다.");
+            location.href = "/loginForm";
+        } else {
+            alert("회원가입에 실패하였습니다");
         }
-    }
+}
 </script>
-
 
 {{> /layout/footer}} 
