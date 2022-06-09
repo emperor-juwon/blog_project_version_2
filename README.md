@@ -12,6 +12,20 @@
 <br/>
 
 ## 💡 블로그 ver1 과 비교하여 추가된 기능들
+### API Controller 추가
+
+- 블로그 ver1 에서는 페이지를 리턴하는 @Controller 에서 데이터를 리턴하는 경우가 생길 시에 @ResponseBody를 사용해서 데이터를 리턴했었다.
+- 이번에는 데이터를 리턴하는 ApiController(@RestController)를 분리하여 구현했다.
+
+
+### Global Exception처리 
+- 내가 제어할 수 없는 위치에서 터지는 오류를 만났을 때, 내가 원하는 예외 처리를 해주기 위해 전역적으로 사용할 수 있는 Exception 처리를 만들어줬다.
+- @ControllerAdvice를 사용하면 모든 exception을 낚아챌 수 있고, @ExceptionHandler 로 특정 예외에만 낚아챌 수 있다.
+
+
+### Generic 와일드 카드 사용
+- 데이터를 요청받고 응답하기 위해 ResponseDto를 만들어준다. 일일이 타입을 맞춰 적어주기 귀찮기 때문에 동적으로 타입 변경이 가능한 와일드 카드<T>를 사용했다.
+
 
 <br/>
 
