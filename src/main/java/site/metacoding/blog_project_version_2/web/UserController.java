@@ -1,5 +1,7 @@
 package site.metacoding.blog_project_version_2.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -10,7 +12,8 @@ import site.metacoding.blog_project_version_2.service.user.UserService;
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final HttpSession session;
 
     @GetMapping("/joinForm")
     public String joinForm() {
@@ -21,4 +24,5 @@ public class UserController {
     public String loginForm() {
         return "user/loginForm";
     }
+
 }

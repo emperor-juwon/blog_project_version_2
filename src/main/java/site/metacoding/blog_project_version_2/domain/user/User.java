@@ -12,6 +12,7 @@ import javax.persistence.Id;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
@@ -40,6 +41,9 @@ public class User {
 
     @Column(nullable = false, length = 300)
     private String addr;
+
+    @Transient
+    private String remember;
 
     @CreatedDate
     private LocalDateTime createDate;

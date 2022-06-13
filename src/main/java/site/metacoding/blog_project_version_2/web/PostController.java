@@ -12,7 +12,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/")
+    @GetMapping({ "/", "/post" })
     public String main() {
         return "post/list";
     }
