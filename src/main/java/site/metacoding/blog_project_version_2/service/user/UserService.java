@@ -38,13 +38,14 @@ public class UserService {
     }
 
     @Transactional
-    public void 회원정보수정(Integer id, UpdateDto updateDto) {
+    public User 회원정보수정(Integer id, UpdateDto updateDto) {
         Optional<User> userOp = userRepository.findById(id);
         if (userOp.isPresent()) {
             User userEntity = userOp.get();
             userEntity.setPassword(updateDto.getPassword());
             userEntity.setEmail(updateDto.getEmail());
             userEntity.setAddr(updateDto.getAddr());
+            return userEntity;
         } else {
             throw new RuntimeException("아이디를 찾을 수 없습니다");
         }
