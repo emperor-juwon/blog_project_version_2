@@ -6,6 +6,10 @@ $("#btn-login").click(()=>{
     login();
 });
 
+$("#btn-update").click(() => {
+    update();
+});
+
 function usernameRemember() {
     let cookies = document.cookie.split("=");
 
@@ -69,3 +73,28 @@ async function login(){
         }
 } 
     
+async function update() {
+    let id = $("#id").val();
+    let updateDto = {
+        password: $("#password").val(),
+        email: $("#email").val(),
+        addr: $("#addr").val()
+    }
+
+    let response = await fetch(`/s/api/user/${id}`, {
+        method: "put",
+        body: JSON.stringify(updateDto),
+        headers: {
+            "Content-Type": "application/json; charset = utf-8"
+        }
+    });
+
+    let responseParse = await response.json();
+
+    if (responseParse.code == 1) {
+        alert("수정 성공");
+        location.href = `/s/user/${id}`;
+    } else {
+        alert("수정 실패");
+    }
+}
