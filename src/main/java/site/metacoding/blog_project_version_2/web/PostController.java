@@ -16,4 +16,9 @@ public class PostController {
     public String main() {
         return "post/list";
     }
+
+    @GetMapping("/s/post/writeForm")
+    public String writeForm() {
+        return "post/writeForm";
+    }
 }

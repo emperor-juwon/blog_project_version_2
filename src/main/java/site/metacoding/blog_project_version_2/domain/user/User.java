@@ -1,6 +1,5 @@
 package site.metacoding.blog_project_version_2.domain.user;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -41,6 +40,9 @@ public class User {
 
     @Column(nullable = false, length = 300)
     private String addr;
+
+    @Column(nullable = true, length = 300)
+    private String profileImg;
 
     @Transient
     private String remember;
