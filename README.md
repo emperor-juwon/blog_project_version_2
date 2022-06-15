@@ -1,31 +1,49 @@
 # 📝나만의 블로그 만들기 - Version 2
 ##  **💡Spring Boot를 활용하여 나만의 블로그 만들기**
 
-- **프로젝트 기간 : 2022.06.08~**
+- **프로젝트 기간 : 2022.06.08~ 2022.06.18**
     
 <br/>
 
 ## 💡 프로젝트 목표
-- 블로그 version1 에서 부족했던 추가 기능을 사용하여 블로그 구현하기 
+- 블로그 version1 의 코드를 리팩토링하여 중복되는 코드를 줄이고 가독성을 높임
+- 블로그 version1 에서 하지 못했던 추가 기능 구현 (댓글)
+- 추가 기능구현보다는 코드 리팩토링에 초점을 맞춤
 - [블로그ver1깃허브](https://github.com/emperor-juwon/blog_project_version_1)
 
 <br/>
 
-## 💡 블로그 ver1 과 비교하여 추가된 기능들
+## 💡 블로그 ver2 에서 업그레이드 된 부분
 ### API Controller 추가
 
-- 블로그 ver1 에서는 페이지를 리턴하는 @Controller 에서 데이터를 리턴하는 경우가 생길 시에 @ResponseBody를 사용해서 데이터를 리턴했었다.
-- 이번에는 데이터를 리턴하는 ApiController(@RestController)를 분리하여 구현했다.
-
+- 블로그 ver1 에서는 페이지를 리턴하는 @Controller 에서 데이터를 리턴하는 경우가 생길 시에 @ResponseBody를 사용해서 데이터를 리턴했음
+- 이번에는 데이터를 리턴하는 ApiController(@RestController)를 분리하여 구현
+- [관련공부기록](https://blog.naver.com/fwangjuwon/222680204093)
 
 ### Global Exception처리 
-- 내가 제어할 수 없는 위치에서 터지는 오류를 만났을 때, 내가 원하는 예외 처리를 해주기 위해 전역적으로 사용할 수 있는 Exception 처리를 만들어줬다.
-- @ControllerAdvice를 사용하면 모든 exception을 낚아챌 수 있고, @ExceptionHandler 로 특정 예외에만 낚아챌 수 있다.
+- 내가 제어할 수 없는 위치에서 터지는 오류를 만났을 때, 내가 원하는 예외 처리를 해주기 위해 전역적으로 사용할 수 있는 Exception 처리
+- @ControllerAdvice를 사용하면 모든 exception을 낚아챌 수 있고, @ExceptionHandler 로 특정 예외에만 낚아채도록 처리
+- [관련공부기록](https://blog.naver.com/fwangjuwon/222680270814)
 
 
-### Generic 와일드 카드 사용
-- 데이터를 요청받고 응답하기 위해 ResponseDto를 만들어준다. 일일이 타입을 맞춰 적어주기 귀찮기 때문에 동적으로 타입 변경이 가능한 와일드 카드<T>를 사용했다.
+### ajax 사용
+- 페이지 전체 리로딩이 아닌 부분 리로딩이 가능하여 통신한 결과를 통해 CSR(Client Side Rendering) 이 가능
+- [관련공부기록](https://blog.naver.com/fwangjuwon/222754964393)
 
+### throw 사용
+- 강제로 터진 해당 Exception을 에러 핸들러가 낚아채도록 처리
+- [관련공부기록](https://blog.naver.com/fwangjuwon/222682690840)
+
+### interceptor를 사용한 인증처리
+- 컨트롤러 메서드의 전처리와 후처리를 제어할 수 있도록 인터셉터 클래스 제공
+- [관련공부기록](https://blog.naver.com/fwangjuwon/222685109976)
+
+### 댓글기능 추가
+- 게시글 상세보기할 때 댓글기능 추가
+-> Post를 SELECT 하는데 Comment까지 가지고 올 수 없을 때 양방향 매핑(@OneToMany) 사용
+- 양방향 매핑을 사용하면 MessageConverter가 getter를 때릴 때 무한 로딩 문제 생김 (n+1문제)
+- [관련공부기록1](https://blog.naver.com/fwangjuwon/222686540045)
+- [관련공부기록2](https://blog.naver.com/fwangjuwon/222734758279)
 
 <br/>
 
@@ -47,24 +65,25 @@
 <br/>
 <br/>
   
-## 💡****페이지별 상세 기능****
-### 🛠 ****유저 관련 기능****
+## 💡****블로그 ver.2 에서 추가된 기능 ****
 
+### 🛠 ****댓글 관련 기능****
+- 댓글 작성 및 삭제 기능
 
-<br/>
-
-### 🛠 ****게시판 관련 기능****
-
-<br/>
-
-## 💡구현 결과(영상 링크)
-
-
+| 댓글 작성| 본인 댓글만 삭제 |
+|------|------|
+|![commentwritereal](https://user-images.githubusercontent.com/104547351/173788224-13c82241-e3c6-44dd-9bb6-029e32671cc6.gif)|![commentwrite](https://user-images.githubusercontent.com/104547351/173788228-eb4d58f0-5aae-40cd-84d7-fadb45d39ad2.gif)
+|
 <br/>
 
 ## 💡ERD
+<img width="423" alt="Screenshot_28" src="https://user-images.githubusercontent.com/104547351/173792144-15834a49-0ce6-4e96-be1d-363e27c6e384.png">
 
 
 <br/>
 
 ## 💡 프로젝트 리뷰 및 개선방향
+- RestController와 Controller를 나누어 사용하니 불필요한 코드 (@Responsebody, @Requestbody 등)를 줄일 수 있었음
+- exception처리 및 throw처리로 error 발생을 줄일 수 있었음
+- test했던 코드들(ex- systemout, console.log) 을 정리하면서 작업할 것
+- 인증과 보안기능 강화 필요
