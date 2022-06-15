@@ -14,31 +14,31 @@
 <br/>
 
 ## 💡 블로그 ver2 에서 업그레이드 된 부분
->> ### API Controller 추가
+> ### API Controller 추가
 
 - 블로그 ver1 에서는 페이지를 리턴하는 @Controller 에서 데이터를 리턴하는 경우가 생길 시에 @ResponseBody를 사용해서 데이터를 리턴했음
 - 이번에는 데이터를 리턴하는 ApiController(@RestController)를 분리하여 구현
 - [관련공부기록](https://blog.naver.com/fwangjuwon/222680204093)
 
->> ### Global Exception처리 
+> ### Global Exception처리 
 - 내가 제어할 수 없는 위치에서 터지는 오류를 만났을 때, 내가 원하는 예외 처리를 해주기 위해 전역적으로 사용할 수 있는 Exception 처리
 - @ControllerAdvice를 사용하면 모든 exception을 낚아챌 수 있고, @ExceptionHandler 로 특정 예외에만 낚아채도록 처리
 - [관련공부기록](https://blog.naver.com/fwangjuwon/222680270814)
 
 
->> ### ajax 사용
+> ### ajax 사용
 - 페이지 전체 리로딩이 아닌 부분 리로딩이 가능하여 통신한 결과를 통해 CSR(Client Side Rendering) 이 가능
 - [관련공부기록](https://blog.naver.com/fwangjuwon/222754964393)
 
->> ### throw 사용
+> ### throw 사용
 - 강제로 터진 해당 Exception을 에러 핸들러가 낚아채도록 처리
 - [관련공부기록](https://blog.naver.com/fwangjuwon/222682690840)
 
->> ### interceptor를 사용한 인증처리
+> ### interceptor를 사용한 인증처리
 - 컨트롤러 메서드의 전처리와 후처리를 제어할 수 있도록 인터셉터 클래스 제공
 - [관련공부기록](https://blog.naver.com/fwangjuwon/222685109976)
 
->> ### 댓글기능 추가
+> ### 댓글기능 추가
 - 게시글 상세보기할 때 댓글기능 추가
 -> Post를 SELECT 하는데 Comment까지 가지고 올 수 없을 때 양방향 매핑(@OneToMany) 사용
 - 양방향 매핑을 사용하면 MessageConverter가 getter를 때릴 때 무한 로딩 문제 생김 (n+1문제)
