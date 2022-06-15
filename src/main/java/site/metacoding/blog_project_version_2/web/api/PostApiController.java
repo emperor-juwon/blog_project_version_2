@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -63,5 +64,24 @@ public class PostApiController {
     public ResponseDto<?> deleteById(@PathVariable Integer id) {
         postService.글삭제하기(id);
         return new ResponseDto<>(1, "삭제 성공", null);
+    }
+
+    @PutMapping("/s/api/post/{id}")
+    public ResponseDto<?> update(@PathVariable Integer id, Post post) {
+
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return new ResponseDto<>(-1, "로그인이 필요합니다.", null);
+
+        }
+
+        Post postEntity = postService.글상세보기(id);
+
+        if (postEntity.getUser().getId() != principal.getId()) {
+            return new ResponseDto<>(-1, "해당 글을 수정할 권한이 없습니다.", null);
+        }
+        postService.글수정하기(post, id);
+
+        return new ResponseDto<>(1, "수정 성공", null);
     }
 }

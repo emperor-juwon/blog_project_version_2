@@ -39,6 +39,15 @@ public class PostController {
         Post postEntity = postService.글상세보기(id);
         User principal = (User) session.getAttribute("principal");
 
+        if (principal != null) {
+            // 권한 확인해서 view로 값을 넘김.
+            if (principal.getId() == postEntity.getUser().getId()) { // 권한 있음
+                model.addAttribute("pageOwner", true);
+            } else {
+                model.addAttribute("pageOwner", false);
+            }
+        }
+
         List<CommentResponseDto> comments = new ArrayList<>();
 
         for (Comment comment : postEntity.getComments()) {
@@ -61,5 +70,13 @@ public class PostController {
         model.addAttribute("comments", comments);
         model.addAttribute("postId", id);
         return "post/detail";
+    }
+
+    @GetMapping("/s/post/{id}/updateForm")
+    public String updateForm(@PathVariable Integer id, Model model) {
+        Post postEntity = postService.글상세보기(id);
+
+        model.addAttribute("post", postEntity);
+        return "post/updateForm";
     }
 }

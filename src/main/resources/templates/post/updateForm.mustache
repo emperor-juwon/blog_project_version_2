@@ -5,15 +5,16 @@
 
     <!--  글쓰기 수정 폼 시작 -->
     <form>
+         <input type="hidden" id="id" value="{{post.id}}">
         <div class="mb-3 mt-3">
-            <input type="text" class="form-control" placeholder="Enter title"  value="제목입니다">
+            <input type="text" class="form-control" placeholder="Enter title"  value="{{post.title}}">
         </div>
         <div class="mb-3">
             <textarea id="content" rows="10" class="form-control">
-              it's 내용
+                {{{post.content}}}
             </textarea>
         </div>
-        <button type="button" class="btn btn-success">글쓰기 수정완료</button>
+        <button id="btn-update" type="button" class="btn btn-success">글쓰기 수정완료</button>
     </form>
     <!-- 글쓰기 수정 폼 끝 -->
 
@@ -23,6 +24,40 @@
     $("#content").summernote({
         height: 400
     });
+</script>
+
+<script>
+
+        $("#btn-update").click((event) => {
+        update();
+    });
+
+
+     async function update() {
+        let id = $("#id").val();
+        let postDto = {
+            title: $("#title").val(),
+            content: $("#content").val()
+        }
+
+
+        let response = await fetch(`/s/api/post/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(postDto),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        });
+
+        let responseObject = await response.json();
+        if (responseObject.code == 1) {
+            alert("수정성공");
+            location.href = `/post/${id}`;
+        } else {
+            alert("수정실패");
+        }
+    }
+
 </script>
 
 {{> /layout/footer}} 

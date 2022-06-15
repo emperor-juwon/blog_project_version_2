@@ -42,4 +42,16 @@ public class PostService {
     public void 글삭제하기(Integer id) {
         postRepository.deleteById(id);
     }
+
+    @Transactional
+    public void 글수정하기(Post post, Integer id) {
+        Optional<Post> postOp = postRepository.findById(id);
+
+        if (postOp.isPresent()) {
+            Post postEntity = postOp.get();
+            postEntity.setTitle(post.getTitle());
+            postEntity.setContent(post.getContent());
+            postRepository.save(postEntity);
+        }
+    }
 }
