@@ -3,6 +3,7 @@ package site.metacoding.blog_project_version_2.domain.post;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -54,7 +55,7 @@ public class Post {
     private Integer pageCount;
 
     @JsonIgnoreProperties({ "post" })
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
     @CreatedDate

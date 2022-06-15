@@ -26,7 +26,7 @@ async function write() {
         }
 }
     
-
+    
 async function loading(){
     let postId = $("#postId").val();
     let response = await fetch(`/api/post/${postId}`);
