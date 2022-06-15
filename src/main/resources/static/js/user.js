@@ -10,13 +10,7 @@ $("#btn-update").click(() => {
     update();
 });
 
-function usernameRemember() {
-    let cookies = document.cookie.split("=");
 
-    $("#username").val(cookies[1]);
-}
-
-usernameRemember();
 
 async function join(){
 
